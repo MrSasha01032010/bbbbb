@@ -64,6 +64,86 @@ a {
     color: #FFD700;
 }
 
+/* DONATES */
+
+.donates-title {
+    text-align: center;
+    margin-top: 35px;
+    color: black;
+    font-weight: 900;
+    font-size: 38px;
+}
+
+.donate-bubbles-name {
+    color: #8a2be2;
+    font-weight: 900;
+}
+
+.donates-permission {
+    margin-top: 25px;
+    color: black;
+    font-weight: 600;
+    font-size: 22px;
+    text-align: center;
+    padding-bottom: 35px;
+}
+
+/* CHIMERA */
+
+.donate-chimera-name {
+    color: #ad0000;
+    font-weight: 900;
+}
+
+/* ROLEX */
+
+.donate-rolex-name {
+    color: #c7ca00;
+    font-weight: 900;
+}
+
+/* LEGEND */
+
+.donate-legend-name {
+    color: #00c3ff;
+    font-weight: 900;
+}
+
+/* TERNES */
+
+.donate-ternes-name {
+    color: #135f00;
+    font-weight: 900;
+}
+
+/* STAR */
+
+.donate-star-name {
+    color: #00ffff;
+    font-weight: 900;
+}
+
+/* BUBBLE */
+
+.donate-bubble-name {
+    color: #b700ff;
+    font-weight: 900;
+}
+
+/* MASTER */
+
+.donate-master-name {
+    color: #ff0000;
+    font-weight: 900;
+}
+
+/* CUBE */
+
+.donate-cube-name {
+    color: #919191;
+    font-weight: 900;
+}
+
 /* FOOTER */
 
 footer {
