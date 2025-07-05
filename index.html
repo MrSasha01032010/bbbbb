@@ -1,75 +1,474 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BubbleCube - Главная страница</title>
-    <link rel="stylesheet" href="styles/index.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
-
-  <body>
-    <!-- HEADER -->
-
-    <header class="header-container">
-      <h1 class="header-header">BubbleCube</h1>
-
-      <!-- HEADER SECTION -->
-
-      <div class="header-sections">
-        <h3 class="header-section">
-          <a href="htmls/donates.html">Возможности донатов</a>
-        </h3>
-        <h3 class="header-section">
-          <a href="htmls/cases.html">Шансы в кейсах</a>
-        </h3>
-        <h3 class="header-section">
-          <a href="htmls/how_buy.html">Как происходит покупка</a>
-        </h3>
-        <h3 class="header-section">
-          <a href="htmls/have_back.html">Есть возврат?</a>
-        </h3>
-      </div>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Михайлов Александр | Официальный сайт</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Михайлов Александр">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .rotate-animation {
+            animation: rotate 10s linear infinite;
+            animation-play-state: paused;
+        }
+        
+        .playing .rotate-animation {
+            animation-play-state: running;
+        }
+        
+        .progress-bar {
+            -webkit-appearance: none;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            border-radius: 50%;
+        }
+        
+        .volume-bar {
+            -webkit-appearance: none;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .volume-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            border-radius: 50%;
+        }
+        
+        .song-item:hover {
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .song-item.active {
+            background-color: rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-900 to-black py-4 px-6 flex items-center justify-between sticky top-0 z-50 shadow-lg">
+        <div class="flex items-center">
+            <i class="fas fa-music text-blue-400 text-2xl mr-3 animate-pulse"></i>
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-white">
+                Михайлов Александр
+            </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="#contact" class="text-blue-400 hover:text-white transition-colors">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="#" class="text-blue-400 hover:text-white transition-colors">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-
-    <div class="main-content"></div>
-
-    <!-- FOOTER -->
-
-    <footer>
-      <div class="footer-content">
-        <div class="social-links">
-          <a
-            href="https://dsc.gg/bubblecube"
-            target="_blank"
-            class="social-icon"
-            ><i class="fab fa-discord"></i> Discord</a
-          >
-          <a
-            href="https://vk.com/bubblecube"
-            target="_blank"
-            class="social-icon"
-            ><i class="fab fa-vk"></i> ВКонтакте</a
-          >
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto px-4 py-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Player Section -->
+            <div class="bg-gray-800 rounded-xl p-6 mb-8">
+                <div class="flex flex-col md:flex-row items-center">
+                    <!-- Album Cover -->
+                    <div class="w-48 h-48 md:w-64 md:h-64 mb-6 md:mb-0 md:mr-8 relative">
+                        <div class="w-full h-full rounded-full overflow-hidden rotate-animation">
+                            <img id="current-cover" src="1.png" alt="Album Cover" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute inset-0 rounded-full border-4 border-blue-500 border-opacity-30 pointer-events-none"></div>
+                    </div>
+                    
+                    <!-- Song Info -->
+                    <div class="flex-1 text-center md:text-left">
+                        <p class="text-blue-400 text-sm mb-1">Сейчас играет</p>
+                        <h2 id="current-title" class="text-2xl font-bold mb-2">Зимовая любовь</h2>
+                        <p id="current-artist" class="text-gray-400 mb-6">Неизвестный исполнитель</p>
+                        
+                        <!-- Progress Bar -->
+                        <div class="mb-4">
+                            <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                <span id="current-time">0:00</span>
+                                <span id="duration">0:00</span>
+                            </div>
+                            <input type="range" id="progress" class="progress-bar w-full" value="0" min="0">
+                        </div>
+                        
+                        <!-- Controls -->
+                        <div class="flex items-center justify-center md:justify-start space-x-6">
+                            <button id="shuffle" class="text-gray-400 hover:text-blue-500">
+                                <i class="fas fa-random"></i>
+                            </button>
+                            <button id="prev" class="text-white hover:text-blue-500">
+                                <i class="fas fa-step-backward text-2xl"></i>
+                            </button>
+                            <button id="play" class="bg-blue-600 hover:bg-blue-700 w-12 h-12 rounded-full flex items-center justify-center">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                            <button id="next" class="text-white hover:text-blue-500">
+                                <i class="fas fa-step-forward text-2xl"></i>
+                            </button>
+                            <button id="repeat" class="text-gray-400 hover:text-blue-500">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Volume Control -->
+            <div class="bg-gray-800 rounded-xl p-4 mb-8 flex items-center">
+                <i class="fas fa-volume-up text-blue-500 mr-3"></i>
+                <input type="range" id="volume" class="volume-bar flex-1" value="70" min="0" max="100">
+                <span id="volume-value" class="ml-3 text-sm w-10 text-right">70%</span>
+            </div>
+            
+            <!-- Playlist -->
+            <div class="bg-gray-800 rounded-xl p-4">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-compact-disc text-blue-400 mr-2 animate-spin" style="animation-duration: 3s;"></i>
+                    Дискография
+                </h2>
+                <div class="space-y-2">
+                    <!-- Song 1 -->
+                    <div class="song-item active flex items-center p-3 rounded-lg cursor-pointer" data-id="0">
+                        <div class="w-12 h-12 rounded-md overflow-hidden mr-4">
+                            <img src="1.png" alt="Cover" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Зимовая любовь</h3>
+                            <p class="text-sm text-gray-400">Михайлов Александр</p>
+                        </div>
+                        <div class="text-gray-400 text-sm">3:24</div>
+                    </div>
+                    
+                    <!-- Song 2 -->
+                    <div class="song-item flex items-center p-3 rounded-lg cursor-pointer" data-id="1">
+                        <div class="w-12 h-12 rounded-md overflow-hidden mr-4">
+                            <img src="2.png" alt="Cover" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Зачем любовь?</h3>
+                            <p class="text-sm text-gray-400">Неизвестный исполнитель</p>
+                        </div>
+                        <div class="text-gray-400 text-sm">2:56</div>
+                    </div>
+                    
+                    <!-- Song 3 -->
+                    <div class="song-item flex items-center p-3 rounded-lg cursor-pointer" data-id="2">
+                        <div class="w-12 h-12 rounded-md overflow-hidden mr-4">
+                            <img src="3.png" alt="Cover" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Черный список</h3>
+                            <p class="text-sm text-gray-400">Неизвестный исполнитель</p>
+                        </div>
+                        <div class="text-gray-400 text-sm">4:12</div>
+                    </div>
+                    
+                    <!-- Song 4 -->
+                    <div class="song-item flex items-center p-3 rounded-lg cursor-pointer" data-id="3">
+                        <div class="w-12 h-12 rounded-md overflow-hidden mr-4">
+                            <img src="4.png" alt="Cover" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Светлые ночи</h3>
+                            <p class="text-sm text-gray-400">Неизвестный исполнитель</p>
+                        </div>
+                        <div class="text-gray-400 text-sm">3:45</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="copyright">&copy; BubbleCube 2024</div>
-        <div class="studio-credit">
-          <a href="https://ghoststudio.online" target="_blank"
-            >Создано студией GhostStudio</a
-          >
+    </main>
+
+    <!-- Player Bar (Mobile) -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 p-3 flex items-center">
+        <div class="w-10 h-10 rounded-md overflow-hidden mr-3">
+            <img id="mobile-cover" src="1.png" alt="Cover" class="w-full h-full object-cover">
         </div>
-      </div>
-    </footer>
-  </body>
+        <div class="flex-1">
+            <h3 id="mobile-title" class="text-sm font-medium truncate">Зимовая любовь</h3>
+            <p id="mobile-artist" class="text-xs text-gray-400 truncate">Неизвестный исполнитель</p>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button id="mobile-play" class="text-white">
+                <i class="fas fa-play"></i>
+            </button>
+            <button id="mobile-next" class="text-white">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-900 py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-center">Контакты</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 p-6 rounded-xl animate-float">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-400">Для сотрудничества</h3>
+                    <p class="mb-4">Email: <a href="mailto:info@mikhailov.ru" class="text-blue-400 hover:underline">info@mikhailov.ru</a></p>
+                    <p>Телефон: <a href="tel:+79991234567" class="text-blue-400 hover:underline">+7 (999) 123-45-67</a></p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl animate-float" style="animation-delay: 0.5s;">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-400">Социальные сети</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl text-blue-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-2xl text-blue-400 hover:text-white transition-colors">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="#" class="text-2xl text-blue-400 hover:text-white transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Element -->
+    <audio id="audio"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const audio = document.getElementById('audio');
+            const playBtn = document.getElementById('play');
+            const mobilePlayBtn = document.getElementById('mobile-play');
+            const prevBtn = document.getElementById('prev');
+            const nextBtn = document.getElementById('next');
+            const mobileNextBtn = document.getElementById('mobile-next');
+            const progress = document.getElementById('progress');
+            const volume = document.getElementById('volume');
+            const volumeValue = document.getElementById('volume-value');
+            const currentTimeEl = document.getElementById('current-time');
+            const durationEl = document.getElementById('duration');
+            const currentTitle = document.getElementById('current-title');
+            const currentCover = document.getElementById('current-cover');
+            const mobileTitle = document.getElementById('mobile-title');
+            const mobileCover = document.getElementById('mobile-cover');
+            const mobileArtist = document.getElementById('mobile-artist');
+            const songItems = document.querySelectorAll('.song-item');
+            const albumCover = document.querySelector('.rotate-animation').parentElement;
+            
+            // Playlist
+            const songs = [
+                {
+                    title: 'Зимовая любовь',
+                    artist: 'Михайлов Александр',
+                    cover: '1.png',
+                    source: '1.mp3',
+                    duration: '3:24'
+                },
+                {
+                    title: 'Зачем любовь?',
+                    artist: 'Неизвестный исполнитель',
+                    cover: '2.png',
+                    source: '2.mp3',
+                    duration: '2:56'
+                },
+                {
+                    title: 'Черный список',
+                    artist: 'Неизвестный исполнитель',
+                    cover: '3.png',
+                    source: '3.mp3',
+                    duration: '4:12'
+                },
+                {
+                    title: 'Светлые ночи',
+                    artist: 'Неизвестный исполнитель',
+                    cover: '4.png',
+                    source: '4.mp3',
+                    duration: '3:45'
+                }
+            ];
+            
+            let currentSongIndex = 0;
+            let isPlaying = false;
+            let isShuffle = false;
+            let isRepeat = false;
+            
+            // Initialize
+            function loadSong(index) {
+                const song = songs[index];
+                currentTitle.textContent = song.title;
+                currentCover.src = song.cover;
+                mobileTitle.textContent = song.title;
+                mobileCover.src = song.cover;
+                mobileArtist.textContent = song.artist;
+                durationEl.textContent = song.duration;
+                audio.src = song.source;
+                
+                // Update active song in playlist
+                songItems.forEach(item => item.classList.remove('active'));
+                songItems[index].classList.add('active');
+                
+                // Scroll to active song
+                songItems[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            // Play/Pause
+            function togglePlay() {
+                if (isPlaying) {
+                    audio.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play text-xl"></i>';
+                    mobilePlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    albumCover.classList.remove('playing');
+                } else {
+                    audio.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause text-xl"></i>';
+                    mobilePlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    albumCover.classList.add('playing');
+                }
+                isPlaying = !isPlaying;
+            }
+            
+            // Next Song
+            function nextSong() {
+                if (isShuffle) {
+                    let newIndex;
+                    do {
+                        newIndex = Math.floor(Math.random() * songs.length);
+                    } while (newIndex === currentSongIndex);
+                    currentSongIndex = newIndex;
+                } else {
+                    currentSongIndex = (currentSongIndex + 1) % songs.length;
+                }
+                loadSong(currentSongIndex);
+                if (isPlaying) audio.play();
+            }
+            
+            // Previous Song
+            function prevSong() {
+                if (isShuffle) {
+                    let newIndex;
+                    do {
+                        newIndex = Math.floor(Math.random() * songs.length);
+                    } while (newIndex === currentSongIndex);
+                    currentSongIndex = newIndex;
+                } else {
+                    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+                }
+                loadSong(currentSongIndex);
+                if (isPlaying) audio.play();
+            }
+            
+            // Update Progress Bar
+            function updateProgress() {
+                const { duration, currentTime } = audio;
+                const progressPercent = (currentTime / duration) * 100;
+                progress.value = progressPercent;
+                
+                // Update time display
+                const currentMinutes = Math.floor(currentTime / 60);
+                const currentSeconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
+                currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+            }
+            
+            // Set Progress
+            function setProgress() {
+                const duration = audio.duration;
+                audio.currentTime = (progress.value / 100) * duration;
+            }
+            
+            // Set Volume
+            function setVolume() {
+                audio.volume = volume.value / 100;
+                volumeValue.textContent = `${volume.value}%`;
+            }
+            
+            // Event Listeners
+            playBtn.addEventListener('click', togglePlay);
+            mobilePlayBtn.addEventListener('click', togglePlay);
+            prevBtn.addEventListener('click', prevSong);
+            nextBtn.addEventListener('click', nextSong);
+            mobileNextBtn.addEventListener('click', nextSong);
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('ended', function() {
+                if (isRepeat) {
+                    audio.currentTime = 0;
+                    audio.play();
+                } else {
+                    nextSong();
+                }
+            });
+            progress.addEventListener('input', setProgress);
+            volume.addEventListener('input', setVolume);
+            
+            // Shuffle and Repeat
+            document.getElementById('shuffle').addEventListener('click', function() {
+                isShuffle = !isShuffle;
+                this.classList.toggle('text-blue-500', isShuffle);
+                this.classList.toggle('text-gray-400', !isShuffle);
+            });
+            
+            document.getElementById('repeat').addEventListener('click', function() {
+                isRepeat = !isRepeat;
+                this.classList.toggle('text-blue-500', isRepeat);
+                this.classList.toggle('text-gray-400', !isRepeat);
+            });
+            
+            // Song selection from playlist
+            songItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-id'));
+                    if (index !== currentSongIndex) {
+                        currentSongIndex = index;
+                        loadSong(currentSongIndex);
+                        if (isPlaying) audio.play();
+                    }
+                });
+            });
+            
+            // Initialize
+            loadSong(0);
+            setVolume();
+            
+            // Format time (helper function)
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+        });
+    </script>
+</body>
 </html>
