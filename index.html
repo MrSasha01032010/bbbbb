@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Михайлов Александр | Официальный сайт</title>
+    <title>GhostMusic | Официальный сайт</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Михайлов Александр">
@@ -15,25 +15,16 @@
             to { transform: rotate(360deg); }
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
         
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        
         .rotate-animation {
-            animation: rotate 10s linear infinite;
+            animation: rotate 20s linear infinite;
             animation-play-state: paused;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
         }
         
         .playing .rotate-animation {
@@ -42,61 +33,90 @@
         
         .progress-bar {
             -webkit-appearance: none;
-            height: 4px;
-            background: #3b82f6;
-            border-radius: 2px;
+            height: 3px;
+            background: #999;
+            border-radius: 3px;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .progress-bar:hover {
+            height: 5px;
         }
         
         .progress-bar::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
-            background: #ffffff;
+            width: 14px;
+            height: 14px;
+            background: white;
             border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         
         .volume-bar {
             -webkit-appearance: none;
-            height: 4px;
-            background: #3b82f6;
-            border-radius: 2px;
+            height: 3px;
+            background: #999;
+            border-radius: 3px;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .volume-bar:hover {
+            height: 5px;
         }
         
         .volume-bar::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
-            background: #ffffff;
+            width: 14px;
+            height: 14px;
+            background: white;
             border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        
+        .song-item {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
         }
         
         .song-item:hover {
-            background-color: rgba(59, 130, 246, 0.2);
+            background-color: rgba(255,255,255,0.05);
+            border-left: 3px solid white;
         }
         
         .song-item.active {
-            background-color: rgba(59, 130, 246, 0.3);
+            background-color: rgba(255,255,255,0.1);
+            border-left: 3px solid white;
+        }
+        
+        .player-container {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .player-container:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .play-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-900 to-black py-4 px-6 flex items-center justify-between sticky top-0 z-50 shadow-lg">
+    <header class="bg-black py-5 px-6 flex items-center justify-center sticky top-0 z-50 border-b border-gray-900">
         <div class="flex items-center">
-            <i class="fas fa-music text-blue-400 text-2xl mr-3 animate-pulse"></i>
-            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-white">
-                Михайлов Александр
+            <h1 class="text-2xl font-bold text-white tracking-tight">
+                GHOSTMUSIC
             </h1>
-        </div>
-        <div class="flex items-center space-x-4">
-            <a href="#contact" class="text-blue-400 hover:text-white transition-colors">
-                <i class="fas fa-envelope"></i>
-            </a>
-            <a href="#" class="text-blue-400 hover:text-white transition-colors">
-                <i class="fab fa-instagram"></i>
-            </a>
         </div>
     </header>
 
@@ -104,19 +124,19 @@
     <main class="flex-1 overflow-y-auto px-4 py-6">
         <div class="max-w-4xl mx-auto">
             <!-- Player Section -->
-            <div class="bg-gray-800 rounded-xl p-6 mb-8">
+            <div class="bg-black rounded-xl p-8 mb-8 player-container">
                 <div class="flex flex-col md:flex-row items-center">
                     <!-- Album Cover -->
                     <div class="w-48 h-48 md:w-64 md:h-64 mb-6 md:mb-0 md:mr-8 relative">
                         <div class="w-full h-full rounded-full overflow-hidden rotate-animation">
                             <img id="current-cover" src="1.jpg" alt="Album Cover" class="w-full h-full object-cover">
                         </div>
-                        <div class="absolute inset-0 rounded-full border-4 border-blue-500 border-opacity-30 pointer-events-none"></div>
+                        <div class="absolute inset-0 rounded-full border-4 border-white border-opacity-10 pointer-events-none"></div>
                     </div>
                     
                     <!-- Song Info -->
                     <div class="flex-1 text-center md:text-left">
-                        <p class="text-blue-400 text-sm mb-1">Сейчас играет</p>
+                        <p class="text-gray-400 text-sm mb-1">Сейчас играет</p>
                         <h2 id="current-title" class="text-2xl font-bold mb-2">Зимовая любовь</h2>
                         <p id="current-artist" class="text-gray-400 mb-6">Михайлов Александр</p>
                         
@@ -131,19 +151,19 @@
                         
                         <!-- Controls -->
                         <div class="flex items-center justify-center md:justify-start space-x-6">
-                            <button id="shuffle" class="text-gray-400 hover:text-blue-500">
+                            <button id="shuffle" class="text-gray-400 hover:text-white">
                                 <i class="fas fa-random"></i>
                             </button>
-                            <button id="prev" class="text-white hover:text-blue-500">
+                            <button id="prev" class="text-white hover:text-gray-300">
                                 <i class="fas fa-step-backward text-2xl"></i>
                             </button>
-                            <button id="play" class="bg-blue-600 hover:bg-blue-700 w-12 h-12 rounded-full flex items-center justify-center">
-                                <i class="fas fa-play text-xl"></i>
+                            <button id="play" class="bg-white hover:bg-gray-100 text-black w-14 h-14 rounded-full flex items-center justify-center play-btn">
+                                <i class="fas fa-play text-2xl"></i>
                             </button>
-                            <button id="next" class="text-white hover:text-blue-500">
+                            <button id="next" class="text-white hover:text-gray-300">
                                 <i class="fas fa-step-forward text-2xl"></i>
                             </button>
-                            <button id="repeat" class="text-gray-400 hover:text-blue-500">
+                            <button id="repeat" class="text-gray-400 hover:text-white">
                                 <i class="fas fa-redo"></i>
                             </button>
                         </div>
@@ -159,9 +179,9 @@
             </div>
             
             <!-- Playlist -->
-            <div class="bg-gray-800 rounded-xl p-4">
+            <div class="bg-black rounded-xl p-6">
                 <h2 class="text-xl font-bold mb-4 flex items-center">
-                    <i class="fas fa-compact-disc text-blue-400 mr-2 animate-spin" style="animation-duration: 3s;"></i>
+                    <i class="fas fa-compact-disc text-white mr-2 animate-spin" style="animation-duration: 3s;"></i>
                     Дискография
                 </h2>
                 <div class="space-y-2">
@@ -230,7 +250,7 @@
     </main>
 
     <!-- Player Bar (Mobile) -->
-    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 p-3 flex items-center">
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-900 p-4 flex items-center backdrop-blur-sm">
         <div class="w-10 h-10 rounded-md overflow-hidden mr-3">
             <img id="mobile-cover" src="1.jpg" alt="Cover" class="w-full h-full object-cover">
         </div>
@@ -247,30 +267,6 @@
             </button>
         </div>
     </div>
-
-    <!-- Contact Section -->
-    <section id="contact" class="bg-gray-900 py-12 px-4">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bold mb-6 text-center">Контакты</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-gray-800 p-6 rounded-xl animate-float">
-                    <h3 class="text-xl font-semibold mb-4 text-blue-400">Для сотрудничества</h3>
-                    <p class="mb-4">Email: <a href="mailto:sasho.mykh.global@gmail.com" class="text-blue-400 hover:underline">sasho.mykh.global@gmail.com</a></p>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-xl animate-float" style="animation-delay: 0.5s;">
-                    <h3 class="text-xl font-semibold mb-4 text-blue-400">Социальные сети</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-2xl text-blue-400 hover:text-white transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-2xl text-blue-400 hover:text-white transition-colors">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Audio Element -->
     <audio id="audio"></audio>
@@ -451,13 +447,13 @@
             // Shuffle and Repeat
             document.getElementById('shuffle').addEventListener('click', function() {
                 isShuffle = !isShuffle;
-                this.classList.toggle('text-blue-500', isShuffle);
+                this.classList.toggle('text-white', isShuffle);
                 this.classList.toggle('text-gray-400', !isShuffle);
             });
             
             document.getElementById('repeat').addEventListener('click', function() {
                 isRepeat = !isRepeat;
-                this.classList.toggle('text-blue-500', isRepeat);
+                this.classList.toggle('text-white', isRepeat);
                 this.classList.toggle('text-gray-400', !isRepeat);
             });
             
